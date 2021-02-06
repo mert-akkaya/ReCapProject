@@ -1,5 +1,7 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 using System;
 
 namespace ConsoleUI
@@ -8,7 +10,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryDal());
+            CarManager carManager = new CarManager(new EfCarDal());
 
             foreach (var car in carManager.GetAll())
             {
@@ -22,17 +24,19 @@ namespace ConsoleUI
                 
             }
 
-            foreach (var carById in carManager.GetById(2))
+            foreach (var carByBrand in carManager.GetCarsByBrandId(2))
             {
-                Console.WriteLine("Match results : ");
-                Console.WriteLine("Car ıd : " + carById.Id);
-                Console.WriteLine("Car color ıd : " + carById.ColorId);
-                Console.WriteLine("Car brand ıd : " + carById.BrandId);
-                Console.WriteLine("Car daily price : " + carById.DailyPrice);
-                Console.WriteLine("Car model year : " + carById.ModelYear);
-                Console.WriteLine("Car description : " + carById.Description);
+                Console.WriteLine(carByBrand.Description);
+                Console.WriteLine("-------------");
             }
-            //istenilirse diğer metodlar da çağırılabilir(Add,Update,Delete)
+            foreach (var carByColor in carManager.GetCarsByColorId(1))
+            {
+                Console.WriteLine(carByColor.Description);
+                Console.WriteLine("--------------");
+            }
+            carManager.Add(new Car { BrandId = 2, ColorId = 4, DailyPrice = 0, Description = "White bmw car", ModelYear = "2020" });
+
+           
         }
     }
 }
