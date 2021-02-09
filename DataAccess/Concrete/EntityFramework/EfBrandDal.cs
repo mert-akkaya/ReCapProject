@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,26 +10,8 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfBrandDal : IBrandDal
+    public class EfBrandDal :EfEntityRepositoryBase<Brand,ReCapProjectContext> ,IBrandDal
     {
-        public void Add(Brand entity)
-        {
-           
-        }
-
-        public void Delete(Brand entity)
-        {
-            
-        }
-
-        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)
-        {
-            return null;
-        }
-
-        public void Update(Brand entity)
-        {
-           
-        }
+      
     }
 }
