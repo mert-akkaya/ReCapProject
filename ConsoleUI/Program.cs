@@ -11,8 +11,8 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-            //BrandTest(1,"Wolsvagen");
-            CarTest();
+            BrandTest(1,"Wolsvagen");
+            //CarTest();
             //ColorTest(1, "Dark Blue");
         }
 
@@ -46,7 +46,8 @@ namespace ConsoleUI
             //carManager.Add(car1);
             // carManager.Delete(car1);
             // carManager.Update(car1);
-            foreach (var car in carManager.GetCarDetail())
+            var result = carManager.GetCarDetail();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.CarName+"/"+car.BrandName+"/"+car.ColorName+"/"+car.DailyPrice);
             }
@@ -54,7 +55,8 @@ namespace ConsoleUI
         private static void BrandTest(int brandId,string brandName)
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.BrandName);
                 Console.WriteLine("----------");
@@ -63,12 +65,13 @@ namespace ConsoleUI
             Brand brand1 = new Brand { BrandName = brandName };
             brandManager.Add(brand1);
             var getBrandId = brandManager.Get(brandId);
-            Console.WriteLine("Brand is : "+getBrandId.BrandName);
+            Console.WriteLine("Brand is : "+getBrandId.Data.BrandName);
         }
         private static void ColorTest(int colorId,string colorName)
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.ColorName);
                 Console.WriteLine("-----------");
@@ -76,7 +79,7 @@ namespace ConsoleUI
             Color color1 = new Color {ColorName=colorName };
             colorManager.Add(color1);
             var getColorId = colorManager.Get(colorId);
-            Console.WriteLine("Color is : "+getColorId.ColorName);
+            Console.WriteLine("Color is : "+getColorId.Data.ColorName);
             
         }
     }
