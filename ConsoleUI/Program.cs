@@ -11,8 +11,8 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-            BrandTest(1,"Wolsvagen");
-            //CarTest();
+           // BrandTest(1,"Wolsvagen");
+            CarTest();
             //ColorTest(1, "Dark Blue");
         }
 
@@ -46,11 +46,22 @@ namespace ConsoleUI
             //carManager.Add(car1);
             // carManager.Delete(car1);
             // carManager.Update(car1);
+            
             var result = carManager.GetCarDetail();
-            foreach (var car in result.Data)
+            if (result.Success)
             {
-                Console.WriteLine(car.CarName+"/"+car.BrandName+"/"+car.ColorName+"/"+car.DailyPrice);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.CarName + "/" + car.BrandName + "/" + car.ColorName + "/" + car.DailyPrice);
+                }
+                Console.WriteLine(result.Message);
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
+            
         }
         private static void BrandTest(int brandId,string brandName)
         {
