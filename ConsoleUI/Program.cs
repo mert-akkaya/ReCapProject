@@ -11,11 +11,36 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-           // BrandTest(1,"Wolsvagen");
-            CarTest();
+            // BrandTest(1,"Wolsvagen");
+            //CarTest();
             //ColorTest(1, "Dark Blue");
+            //CustomerAdd();
+            //UserAdd();
+            //RentalTest();
+            RentalAdd();
         }
+        private static void CustomerAdd()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            
+            Console.WriteLine(customerManager.Add(new Customer { UserId = 1002, CompanyName = "Akkaya A.Ş" }).Message);
+        }
+        private static void UserAdd()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User { FirstName = "Engin", LastName = "Demiroğ", Email = "engin@gmail.com", Password = "12345" });
+        }
+        private static void RentalAdd()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Console.WriteLine(rentalManager.Add(new Rental { CarId = 2, CustomerId = 17, RentDate = DateTime.Now, ReturnDate = null }).Message);
+        }
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Console.WriteLine(rentalManager.Add(new Rental { CarId = 2, CustomerId = 2, RentDate = DateTime.Now, ReturnDate = null }).Message);
 
+        }
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
