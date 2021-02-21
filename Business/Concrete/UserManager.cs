@@ -50,7 +50,7 @@ namespace Business.Concrete
             }
             else
             {
-                return new SuccessDataResult<List<User>>(Messages.UsersListed);
+                return new SuccessDataResult<List<User>>(users,Messages.UsersListed);
             }
         }
 
