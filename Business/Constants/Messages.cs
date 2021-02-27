@@ -45,5 +45,6 @@ namespace Business.Constants
         public static string RentalIsNull = "Rental is not found";
         public static string RentalsListed = "Rentals listed";
         public static string RentalsNotListed = "There is no rental";
+        public static string CarImageLimitExceed= "A car can have up to 5 images";
     }
 }
