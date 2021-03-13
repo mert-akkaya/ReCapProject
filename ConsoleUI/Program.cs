@@ -73,19 +73,19 @@ namespace ConsoleUI
             // carManager.Delete(car1);
             // carManager.Update(car1);
             
-            var result = carManager.GetCarDetail();
-            if (result.Success)
-            {
-                foreach (var car in result.Data)
-                {
-                    Console.WriteLine(car.CarName + "/" + car.BrandName + "/" + car.ColorName + "/" + car.DailyPrice);
-                }
-                Console.WriteLine(result.Message);
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
+            //var result = carManager.GetCarDetail();
+            //if (result.Success)
+            //{
+            //    foreach (var car in result.Data)
+            //    {
+            //        Console.WriteLine(car.CarName + "/" + car.BrandName + "/" + car.ColorName + "/" + car.DailyPrice);
+            //    }
+            //    Console.WriteLine(result.Message);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
             
             
         }

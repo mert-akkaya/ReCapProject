@@ -31,6 +31,10 @@ namespace Business.Concrete
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
+            if (car.DailyPrice<15)
+            {
+                return new ErrorResult();
+            }
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
 

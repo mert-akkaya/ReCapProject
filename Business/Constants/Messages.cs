@@ -20,6 +20,7 @@ namespace Business.Constants
         public static string BrandAdded = "Brand added";
         public static string BrandDeleted = "Brand deleted";
         public static string BrandUpdated = "Brand updated";
+        public static string BrandsListed = "Brands listed";
 
         public static string ColorAdded = "Color added";
         public static string ColordDeleted = "Color deleted";
@@ -47,6 +48,7 @@ namespace Business.Constants
         public static string RentalIsNull = "Rental is not found";
         public static string RentalsListed = "Rentals listed";
         public static string RentalsNotListed = "There is no rental";
+        public static string RentalDetailListed = "Rental detail listed";
         public static string CarImageLimitExceed= "A car can have up to 5 images";
         public static string UserNotFound="User not found";
         public static string PasswordError="Password error";

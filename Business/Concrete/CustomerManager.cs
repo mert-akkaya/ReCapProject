@@ -55,7 +55,7 @@ namespace Business.Concrete
             }
             else
             {
-                return new ErrorDataResult<List<Customer>>(customers, Messages.CustomersListed);
+                return new SuccessDataResult<List<Customer>>(customers, Messages.CustomersListed);
             }
         }
 
