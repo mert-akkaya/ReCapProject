@@ -28,22 +28,28 @@ namespace Business.Concrete
             {
                 return result;
             }
-            carImage.ImagePath = FileHelper.Add(file);
-            carImage.Date = DateTime.Now;
+            var imageResult = FileHelper.Upload(file);
+
+            if (!imageResult.Success)
+            {
+                return new ErrorResult(imageResult.Message);
+            }
+            carImage.ImagePath = imageResult.Message;
             _carImageDal.Add(carImage);
-            return new SuccessResult();
+            return new SuccessResult("Car image added");
         }
 
         public IResult Delete(CarImage carImage)
         {
-            var result = BusinessRules.Run(CarImageDelete(carImage));
-            if (result != null)
+            var image = _carImageDal.Get(c => c.Id == carImage.Id);
+            if (image == null)
             {
-                return result;
-
+                return new ErrorResult("Image not found");
             }
+
+            FileHelper.Delete(image.ImagePath);
             _carImageDal.Delete(carImage);
-            return new SuccessResult();
+            return new SuccessResult("Image was deleted successfully");
 
         }
 
@@ -59,15 +65,35 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetImagesByCarId(int carId)
         {
-            return new SuccessDataResult<List<CarImage>>(ChechIfCarImageNull(carId));
+            var result = _carImageDal.GetAll(i => i.CarId == carId);
+
+            if (result.Count > 0)
+            {
+                return new SuccessDataResult<List<CarImage>>(result);
+            }
+
+            List<CarImage> images = new List<CarImage>();
+            images.Add(new CarImage() { CarId = 0, ImagePath = "/Images/logo.jpg",Date=DateTime.Now });
+
+            return new SuccessDataResult<List<CarImage>>(images);
         }
 
         public IResult Update(IFormFile file, CarImage carImage)
         {
-            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(c => c.Id == carImage.Id).ImagePath, file);
-            carImage.Date = DateTime.Now;
+            var isImage = _carImageDal.Get(c => c.Id == carImage.Id);
+            if (isImage == null)
+            {
+                return new ErrorResult("Image not found");
+            }
+
+            var updatedFile = FileHelper.Update(file, isImage.ImagePath);
+            if (!updatedFile.Success)
+            {
+                return new ErrorResult(updatedFile.Message);
+            }
+            carImage.ImagePath = updatedFile.Message;
             _carImageDal.Update(carImage);
-            return new SuccessResult();
+            return new SuccessResult("Car image updated");
         }
         private IResult CheckIfImageLimitExceed(int carId)
         {
@@ -78,22 +104,7 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
-        private List<CarImage> ChechIfCarImageNull(int id)
-        {
-            string path = @"wwwroot\Images\logo.jpg";
-            var result = _carImageDal.GetAll(c => c.CarId == id).Any();
-            if (!result)
-            {
-                return new List<CarImage> { new CarImage { CarId = id, ImagePath = path, Date = DateTime.Now } };
-            }
-            return _carImageDal.GetAll(c => c.CarId == id);
-
-        }
-        private IResult CarImageDelete(CarImage carImage)
-        {
-
-            File.Delete(carImage.ImagePath);
-            return new SuccessResult();
-        }
+        
+       
     }
 }
