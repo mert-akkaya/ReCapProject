@@ -25,7 +25,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-           IResult result = BusinessRules.Run(ChechIfCarReturnDate(rental));
+           IResult result = BusinessRules.Run(ChechIfCarReturnDate(rental),CheckIfCarRentable(rental));
             if (result!=null)
             {
                 return result;
@@ -97,6 +97,24 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.RentalNotAdded);
             }
             return new SuccessResult();
+        }
+        private IResult CheckIfCarRentable(Rental rental)
+        {
+            var result = _rentalDal.Get(r => r.CarId == rental.CarId);
+            if (result!=null)
+            {
+                  if (rental.RentDate>result.ReturnDate)
+                {
+                    return new SuccessResult();
+                }
+                return new ErrorResult();
+            }
+            else
+            {
+                return new SuccessResult();
+            }
+            
+            
         }
     }
 }

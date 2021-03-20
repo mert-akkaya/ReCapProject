@@ -50,7 +50,6 @@ namespace Business.Concrete
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
         {
-            Thread.Sleep(5000);
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
 
@@ -94,6 +93,20 @@ namespace Business.Concrete
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarByBrandAndColor(int brandId, int colorId)
+        {
+           var result = _carDal.GetCarDetail(c=>c.BrandId==brandId && c.ColorId==colorId);
+            if (result == null)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>("cars not listed for brand and color");
+            }
+            else
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(result,"cars listed for brand and color");
+            }
+            
         }
     }
 }
