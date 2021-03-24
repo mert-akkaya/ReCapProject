@@ -107,7 +107,7 @@ namespace Business.Concrete
                 {
                     return new SuccessResult();
                 }
-                return new ErrorResult();
+                return new ErrorResult("This car cannot be rent");
             }
             else
             {

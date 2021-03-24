@@ -12,5 +12,7 @@ namespace Business.ValidationRules.FluentValidation
         {
             RuleFor(c => c.ColorName).NotEmpty();
         }
+       
+        
     }
 }
