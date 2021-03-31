@@ -30,7 +30,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  ModelYear=c.ModelYear,
                                  DailyPrice = c.DailyPrice,
                                  Description=c.Description,
-                                 ImagePath=context.CarImages.Where(i=>i.CarId==c.Id).FirstOrDefault().ImagePath
+                                 ImagePath=context.CarImages.Where(i=>i.CarId==c.Id).FirstOrDefault().ImagePath,
+                                 FindexPoint=c.FindexPoint
                              };
                 return result.ToList();
             }

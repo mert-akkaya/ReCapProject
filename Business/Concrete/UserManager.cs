@@ -4,7 +4,9 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspect.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Result;
+using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
+using Entities.Concrete.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -71,6 +73,25 @@ namespace Business.Concrete
         public IResult Update(User user)
         {
             _userDal.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
+        }
+
+        public IResult UpdateForProfile(UserForProfileUpdateDto userForProfileUpdateDto)
+        {
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(userForProfileUpdateDto.Password, out passwordHash, out passwordSalt);
+            var updatedUser = new User
+            {
+                Id = userForProfileUpdateDto.Id,
+                FirstName = userForProfileUpdateDto.FirstName,
+                LastName = userForProfileUpdateDto.LastName,
+                Email = userForProfileUpdateDto.Email,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = userForProfileUpdateDto.Status
+
+            };
+            _userDal.Update(updatedUser);
             return new SuccessResult(Messages.UserUpdated);
         }
     }

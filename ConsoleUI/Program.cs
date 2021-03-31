@@ -33,13 +33,13 @@ namespace ConsoleUI
         }
         private static void RentalAdd()
         {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            Console.WriteLine(rentalManager.Add(new Rental { CarId = 2, CustomerId = 17, RentDate = DateTime.Now, ReturnDate = null }).Message);
+            //RentalManager rentalManager = new RentalManager(new EfRentalDal());
+           // Console.WriteLine(rentalManager.Add(new Rental { CarId = 2, CustomerId = 17, RentDate = DateTime.Now, ReturnDate = null }).Message);
         }
         private static void RentalTest()
         {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            Console.WriteLine(rentalManager.Add(new Rental { CarId = 2, CustomerId = 2, RentDate = DateTime.Now, ReturnDate = null }).Message);
+            //RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            //Console.WriteLine(rentalManager.Add(new Rental { CarId = 2, CustomerId = 2, RentDate = DateTime.Now, ReturnDate = null }).Message);
 
         }
         private static void CarTest()

@@ -24,7 +24,11 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
-            _customerDal.Add(customer);
+            _customerDal.Add(new Customer { 
+                UserId=customer.UserId,
+                CompanyName=customer.CompanyName,
+                FindexPoint=100
+            });
             return new SuccessResult(Messages.CustomerAdded);
         }
 
@@ -57,6 +61,19 @@ namespace Business.Concrete
             else
             {
                 return new SuccessDataResult<List<Customer>>(customers, Messages.CustomersListed);
+            }
+        }
+
+        public IDataResult<Customer> GetCustomerByUserId(int userId)
+        {
+            var customer = _customerDal.Get(c => c.UserId == userId);
+            if (customer==null)
+            {
+                return new ErrorDataResult<Customer>("You are not customer");
+            }
+            else
+            {
+                return new SuccessDataResult<Customer>(customer);
             }
         }
 

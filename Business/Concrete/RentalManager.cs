@@ -16,16 +16,19 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
-
-        public RentalManager(IRentalDal rentalDal)
+        ICustomerService _customerService;
+        ICarService _carService;
+        public RentalManager(IRentalDal rentalDal,ICarService carService,ICustomerService customerService)
         {
             _rentalDal = rentalDal;
+            _customerService = customerService;
+            _carService = carService;
         }
 
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-           IResult result = BusinessRules.Run(ChechIfCarReturnDate(rental),CheckIfCarRentable(rental));
+            IResult result = BusinessRules.Run(ChechIfCarReturnDate(rental), CheckIfCarRentable(rental), CheckIfCarFindexPoint(rental));
             if (result!=null)
             {
                 return result;
@@ -116,5 +119,23 @@ namespace Business.Concrete
             
             
         }
+        private IResult CheckIfCarFindexPoint(Rental rental)
+        {
+            var carFindexPoint = _carService.GetById(rental.CarId).Data.FindexPoint;
+            if (carFindexPoint<=0)
+            {
+                return new ErrorResult("Car findex point cant not be zero");
+            }
+            var customerFindexPoint = _customerService.Get(rental.CustomerId).Data.FindexPoint;
+            if (customerFindexPoint>=carFindexPoint)
+            {
+                return new SuccessResult();
+            }
+            else
+            {
+                return new ErrorResult(Messages.InsufficientFindexPoint);
+            }
+        }
+      
     }
 }
