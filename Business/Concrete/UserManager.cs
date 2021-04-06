@@ -94,5 +94,7 @@ namespace Business.Concrete
             _userDal.Update(updatedUser);
             return new SuccessResult(Messages.UserUpdated);
         }
+
+       
     }
 }

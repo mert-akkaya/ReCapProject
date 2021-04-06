@@ -9,8 +9,10 @@ namespace Entities.Concrete
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
+        public string CartName { get; set; }
         public string CartNumber { get; set; }
         public int CartCvv { get; set; }
+        public string CartDate { get; set; }
         public int Price { get; set; }
     }
 }
