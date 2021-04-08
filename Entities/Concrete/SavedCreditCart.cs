@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Entities.Concrete
 {
-    public class Payment:IEntity
+    public class SavedCreditCart:IEntity
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
         public int CartId { get; set; }
-        public int Price { get; set; }
+
     }
 }

@@ -59,5 +59,8 @@ namespace Business.Constants
         public static string AuthorizationDenied = "You are not authorized";
         public static string InsufficientFindexPoint = "Findex point insufficient";
 
+        public static string CartSaved = "Cart saved";
+        public static string CartDeleted = "Cart deleted";
+
     }
 }

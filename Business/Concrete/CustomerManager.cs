@@ -47,7 +47,7 @@ namespace Business.Concrete
             }
             else
             {
-                return new ErrorDataResult<Customer>(customer, Messages.CustomersListed);
+                return new SuccessDataResult<Customer>(customer, Messages.CustomersListed);
             }
         }
 
