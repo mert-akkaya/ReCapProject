@@ -39,6 +39,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        
         [HttpPost("add")]
         public IActionResult Add(SavedCreditCart creditCart)
         {
@@ -60,7 +61,17 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-   
+        [HttpGet("getsavedcartdetail")]
+        public IActionResult GetsavedCartDetail(int customerId)
+        {
+            var result = _savedCreditCartService.GetSavedCartDetail(customerId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
     }
 }

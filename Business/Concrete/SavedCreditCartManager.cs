@@ -3,6 +3,7 @@ using Business.Constants;
 using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Concrete.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,6 +39,11 @@ namespace Business.Concrete
         {
             var result = _savedCreditCartDal.Get(c => c.Id == id);
             return new SuccessDataResult<SavedCreditCart>(result);
+        }
+
+        public IDataResult<List<SavedCartDetailDto>> GetSavedCartDetail(int customerId)
+        {
+            return new SuccessDataResult<List<SavedCartDetailDto>>(_savedCreditCartDal.GetSavedCartDetail(c=>c.CustomerId==customerId));
         }
     }
 }
