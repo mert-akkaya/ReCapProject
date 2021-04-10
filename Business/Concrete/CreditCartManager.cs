@@ -40,6 +40,14 @@ namespace Business.Concrete
             return new SuccessDataResult<CreditCart>(result);
         }
 
-       
+        public IDataResult<CreditCart> GetCartByCartNumber(string cartNumber)
+        {
+            var result = _creditCartDal.Get(c => c.CartNumber == cartNumber);
+            if (result==null)
+            {
+                new ErrorDataResult<CreditCart>();
+            }
+            return new SuccessDataResult<CreditCart>(result);
+        }
     }
 }

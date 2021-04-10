@@ -61,6 +61,16 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         
+        [HttpGet("getcartbycartnumber")]
+        public IActionResult GetCartByCartNumber(string cartNumber)
+        {
+            var result = _creditCartService.GetCartByCartNumber(cartNumber);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
     }
 }

@@ -12,5 +12,6 @@ namespace Business.Abstract
         IResult Delete(CreditCart creditCart);
         IDataResult<List<CreditCart>> GetAll();
         IDataResult<CreditCart> GetById(int id);
+        IDataResult<CreditCart> GetCartByCartNumber(string cartNumber);
     }
 }
